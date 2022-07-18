@@ -5,9 +5,10 @@ import TodoList from "./TodoList";
 function App() {
     return (
         <div className="App">
-            <TodoList/>
-            <TodoList/>
-            <TodoList/>
+            <TodoList title={"Learn React"}/>
+            <TodoList title={"Learn Typescript"}/>
+            <TodoList title={"Learn English"}/>
+
         </div>
     );
 }
