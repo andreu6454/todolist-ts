@@ -17,7 +17,13 @@ function App() {
     const removeTask = (taskID: number) => {
         setTasks(tasks.filter(task => task.id !==taskID))
     }
+
+    const changeFilter = (filter: FilterValuesType) => {
+        setFilter(filter);
+    }
+
     let tasksForRender ;
+
     switch (filter){
         case "completed":
             tasksForRender = tasks.filter(task => task.isDone)
@@ -36,6 +42,7 @@ function App() {
                 title={toDoListTitle}
                 tasks={tasksForRender}
                 removeTask={removeTask}
+                changeFilter={changeFilter}
             />
             {/*<TodoList title={"Learn Typescript"} tasks={tasks}/>*/}
             {/*<TodoList title={"Learn English"} tasks={tasks}/>*/}
