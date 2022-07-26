@@ -44,8 +44,6 @@ function App() {
                 removeTask={removeTask}
                 changeFilter={changeFilter}
             />
-            {/*<TodoList title={"Learn Typescript"} tasks={tasks}/>*/}
-            {/*<TodoList title={"Learn English"} tasks={tasks}/>*/}
 
         </div>
     );
