@@ -53,6 +53,7 @@ function App() {
                 tasks={tasksForRender}
                 removeTask={removeTask}
                 changeFilter={changeFilter}
+                addTask={addTask}
             />
 
         </div>
