@@ -15,6 +15,15 @@ function App() {
     ])
     const [filter, setFilter] = useState<FilterValuesType>("all")
 
+    const addTask = (title: string) => {
+        const newTask: TaskType = {
+            id: v1(),
+            title: title,
+            isDone: false
+        }
+        setTasks([...tasks, newTask])
+    }
+
     const removeTask = (taskID: string) => {
         setTasks(tasks.filter(task => task.id !== taskID))
     }
