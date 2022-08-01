@@ -21,7 +21,7 @@ function App() {
             title: title,
             isDone: false
         }
-        setTasks([...tasks, newTask])
+        setTasks([newTask,...tasks])
     }
 
     const removeTask = (taskID: string) => {
