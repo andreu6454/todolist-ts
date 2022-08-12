@@ -15,6 +15,14 @@ function App() {
     ])
     const [filter, setFilter] = useState<FilterValuesType>("all")
 
+    const changeStatus = (taskId: string, isDone: boolean) => {
+        let task = tasks.find(task => task.id === taskId);
+        if(task){
+            task.isDone = isDone;
+        }
+        let copy = [...tasks]
+        setTasks(copy)
+    }
     const addTask = (title: string) => {
         const newTask: TaskType = {
             id: v1(),
@@ -54,6 +62,8 @@ function App() {
                 removeTask={removeTask}
                 changeFilter={changeFilter}
                 addTask={addTask}
+                changeTaskStatus={changeStatus}
+                filter={filter}
             />
 
         </div>
