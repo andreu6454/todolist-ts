@@ -11,12 +11,14 @@ export const AddItemForm = (props: AddItemProps) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
+
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null);
         if (e.charCode === 13) {
             addTask();
         }
     }
+
     const addTask = () => {
         if (title.trim() !== "") {
             callBack(title.trim());
@@ -25,6 +27,7 @@ export const AddItemForm = (props: AddItemProps) => {
             setError("Title is required");
         }
     }
+
     return (
         <div>
             <input value={title}
