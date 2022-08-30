@@ -1,3 +1,4 @@
+import {Button, TextField} from '@mui/material';
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
 type AddItemProps = {
@@ -6,14 +7,17 @@ type AddItemProps = {
 export const AddItemForm = (props: AddItemProps) => {
      const {callBack} = props
     let [title, setTitle] = useState("")
-    let [error, setError] = useState<string | null>(null)
+    let [error, setError] = useState(false)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
+
+
+
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null);
+        setError(false);
         if (e.charCode === 13) {
             addTask();
         }
@@ -24,19 +28,27 @@ export const AddItemForm = (props: AddItemProps) => {
             callBack(title.trim());
             setTitle("");
         } else {
-            setError("Title is required");
+            setError(true);
         }
     }
 
     return (
         <div>
-            <input value={title}
-                   onChange={onChangeHandler}
-                   onKeyPress={onKeyPressHandler}
-                   className={error ? "error" : ""}
+            <TextField
+                value={title}
+                onChange={onChangeHandler}
+                onKeyPress={onKeyPressHandler}
+                error={error}
+                id="outlined-basic"
+                label={error? "Title is required" : "Add title"}
+                variant="outlined"
+                size = "small"
             />
-            <button onClick={addTask}>+</button>
-            {error && <div className="error-message">{error}</div>}
+            <Button
+                variant={'contained'}
+                style={{maxWidth: '38px', maxHeight: '38px', minWidth: '38px', minHeight: '38px', background: "#3b3939"}}
+                size={'small'}
+                onClick={addTask} >+</Button>
         </div>
     );
 };
