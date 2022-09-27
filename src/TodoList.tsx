@@ -60,7 +60,6 @@ export function TodoList({todolist}: PropsType) {
         <ul>
             {
                 tasksForTodolist.map(t => {
-
                     const onClickHandler = () =>dispatch(removeTaskAC(t.id, todolist.id))
                     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                         let newIsDoneValue = e.currentTarget.checked;
