@@ -1,5 +1,5 @@
 import {Button, Checkbox, IconButton} from '@mui/material';
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import {TodolistsType} from './App';
 import {AddItemForm} from "./Components/AddItemForm";
 import {EditableSpan} from "./Components/EditableSpan";
@@ -24,9 +24,9 @@ export function TodoList({todolist}: PropsType) {
     let tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[todolist.id]);
     const dispatch = useDispatch()
 
-    const addTask = (title: string) => {
+    const addTask = useCallback((title: string) => {
         dispatch(addTaskAC(title,todolist.id))
-    }
+    }, [dispatch,todolist.id])
     const removeTodolist = () => {
         dispatch(removeTodolistAC(todolist.id))
     }

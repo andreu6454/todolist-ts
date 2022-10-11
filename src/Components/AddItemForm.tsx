@@ -1,11 +1,11 @@
 import {Button, TextField} from '@mui/material';
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 
 type AddItemProps = {
-    callBack: (title: string)=> void
+    callBack: (title: string) => void
 }
-export const AddItemForm = (props: AddItemProps) => {
-     const {callBack} = props
+export const AddItemForm = memo((props: AddItemProps) => {
+    const {callBack} = props
     let [title, setTitle] = useState("")
     let [error, setError] = useState(false)
 
@@ -14,10 +14,10 @@ export const AddItemForm = (props: AddItemProps) => {
     }
 
 
-
-
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(false);
+        if(error){
+            setError(false);
+        }
         if (e.charCode === 13) {
             addTask();
         }
@@ -40,15 +40,21 @@ export const AddItemForm = (props: AddItemProps) => {
                 onKeyPress={onKeyPressHandler}
                 error={error}
                 id="outlined-basic"
-                label={error? "Title is required" : "Add title"}
+                label={error ? "Title is required" : "Add title"}
                 variant="outlined"
-                size = "small"
+                size="small"
             />
             <Button
                 variant={'contained'}
-                style={{maxWidth: '38px', maxHeight: '38px', minWidth: '38px', minHeight: '38px', background: "#3b3939"}}
+                style={{
+                    maxWidth: '38px',
+                    maxHeight: '38px',
+                    minWidth: '38px',
+                    minHeight: '38px',
+                    background: "#3b3939"
+                }}
                 size={'small'}
-                onClick={addTask} >+</Button>
+                onClick={addTask}>+</Button>
         </div>
     );
-};
+});
