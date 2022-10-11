@@ -15,7 +15,6 @@ const TaskItem = (props: TaskItemType) => {
     const dispatch = useDispatch()
 
     const onClickHandler = () =>dispatch(removeTaskAC(props.task.id, props.todolistId))
-
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked;
         dispatch(changeTaskStatusAC(props.task.id, newIsDoneValue, props.todolistId));
