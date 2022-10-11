@@ -1,13 +1,14 @@
-import {Button, Checkbox, IconButton} from '@mui/material';
-import React, {ChangeEvent, memo, useCallback} from 'react';
+import {Button, IconButton} from '@mui/material';
+import React, {memo, useCallback} from 'react';
 import {TodolistsType} from './App';
 import {AddItemForm} from "./Components/AddItemForm";
 import {EditableSpan} from "./Components/EditableSpan";
 import {Delete} from "@mui/icons-material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {addTaskAC} from "./state/tasks-reducer";
 import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from "./state/todolists-reducer";
+import TaskItem from "./Components/TaskItem";
 
 export type TaskType = {
     id: string
@@ -59,22 +60,7 @@ export const TodoList = memo(({todolist}: PropsType) => {
         <ul>
             {
                 tasksForTodolist.map(t => {
-                    const onClickHandler = () =>dispatch(removeTaskAC(t.id, todolist.id))
-                    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        let newIsDoneValue = e.currentTarget.checked;
-                        dispatch(changeTaskStatusAC(t.id, newIsDoneValue, todolist.id));
-                    }
-                    const onTitleChangeHandler = (newValue: string) => {
-                        dispatch(changeTaskTitleAC(t.id, newValue, todolist.id));
-                    }
-
-                    return <li key={t.id} className={t.isDone ? "is-done" : ""}>
-                        <Checkbox checked={t.isDone} onChange={onChangeHandler} defaultChecked size="small"/>
-                        <EditableSpan title={t.title} callBack={onTitleChangeHandler}/>
-                        <IconButton aria-label="delete" onClick={onClickHandler} size={"small"}>
-                            <Delete />
-                        </IconButton>
-                    </li>
+                    return <TaskItem  task={t} todolistId={todolist.id}/>
                 })
             }
         </ul>
