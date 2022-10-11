@@ -1,5 +1,5 @@
 import {Button, Checkbox, IconButton} from '@mui/material';
-import React, {ChangeEvent, useCallback} from 'react';
+import React, {ChangeEvent, memo, useCallback} from 'react';
 import {TodolistsType} from './App';
 import {AddItemForm} from "./Components/AddItemForm";
 import {EditableSpan} from "./Components/EditableSpan";
@@ -19,23 +19,22 @@ type PropsType = {
     todolist: TodolistsType
 }
 
-export function TodoList({todolist}: PropsType) {
-
+export const TodoList = memo(({todolist}: PropsType) => {
     let tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[todolist.id]);
     const dispatch = useDispatch()
 
     const addTask = useCallback((title: string) => {
         dispatch(addTaskAC(title,todolist.id))
     }, [dispatch,todolist.id])
-    const removeTodolist = () => {
+    const removeTodolist =useCallback( () => {
         dispatch(removeTodolistAC(todolist.id))
-    }
-    const changeTodolistTitle = (title: string) => {
+    },[dispatch,todolist.id])
+    const changeTodolistTitle =useCallback( (title: string) => {
         dispatch(changeTodolistTitleAC(todolist.id,title))
-    }
-    const onAllClickHandler = () => dispatch(changeTodolistFilterAC(todolist.id,"all"));
-    const onActiveClickHandler = () => dispatch(changeTodolistFilterAC(todolist.id,"active"));
-    const onCompletedClickHandler = () => dispatch(changeTodolistFilterAC(todolist.id,"completed"));
+    },[dispatch,todolist.id])
+    const onAllClickHandler = useCallback(() => dispatch(changeTodolistFilterAC(todolist.id,"all")),[dispatch,todolist.id]);
+    const onActiveClickHandler =useCallback( () => dispatch(changeTodolistFilterAC(todolist.id,"active")),[dispatch,todolist.id]);
+    const onCompletedClickHandler =useCallback( () => dispatch(changeTodolistFilterAC(todolist.id,"completed")),[dispatch,todolist.id]);
 
     let allTodolistTasks = tasks;
     let tasksForTodolist = allTodolistTasks;
@@ -90,4 +89,4 @@ export function TodoList({todolist}: PropsType) {
 
         </div>
     </div>
-}
+});
