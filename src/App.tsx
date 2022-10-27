@@ -7,6 +7,7 @@ import ButtonAppBar from "./Components/ButtonAppBar";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import {addTodolistAC} from "./state/todolists-reducer";
+import {v1} from "uuid";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -37,7 +38,7 @@ function App() {
                 <Grid container style={{padding: "20px"}}>
                     <div>
                         <h3> Create New Todolist </h3>
-                        <AddItemForm callBack={addTodolist}/>
+                        <AddItemForm key={v1()} callBack={addTodolist}/>
                     </div>
                 </Grid>
                 <Grid container spacing={3}>

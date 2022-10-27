@@ -9,6 +9,7 @@ import {AppRootStateType} from "./state/store";
 import {addTaskAC} from "./state/tasks-reducer";
 import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from "./state/todolists-reducer";
 import TaskItem from "./Components/TaskItem";
+import {v1} from "uuid";
 
 export type TaskType = {
     id: string
@@ -33,9 +34,15 @@ export const TodoList = memo(({todolist}: PropsType) => {
     const changeTodolistTitle =useCallback( (title: string) => {
         dispatch(changeTodolistTitleAC(todolist.id,title))
     },[dispatch,todolist.id])
-    const onAllClickHandler = useCallback(() => dispatch(changeTodolistFilterAC(todolist.id,"all")),[dispatch,todolist.id]);
-    const onActiveClickHandler =useCallback( () => dispatch(changeTodolistFilterAC(todolist.id,"active")),[dispatch,todolist.id]);
-    const onCompletedClickHandler =useCallback( () => dispatch(changeTodolistFilterAC(todolist.id,"completed")),[dispatch,todolist.id]);
+    const onAllClickHandler = useCallback(() =>
+        dispatch(changeTodolistFilterAC(todolist.id,"all")
+        ),[dispatch,todolist.id]);
+    const onActiveClickHandler =useCallback( () =>
+        dispatch(changeTodolistFilterAC(todolist.id,"active")
+        ),[dispatch,todolist.id]);
+    const onCompletedClickHandler =useCallback( () =>
+        dispatch(changeTodolistFilterAC(todolist.id,"completed")
+        ),[dispatch,todolist.id]);
 
     let allTodolistTasks = tasks;
     let tasksForTodolist = allTodolistTasks;
@@ -49,7 +56,7 @@ export const TodoList = memo(({todolist}: PropsType) => {
 
     return <div>
         <h3>
-            <EditableSpan title={todolist.title} callBack={changeTodolistTitle} />
+            <EditableSpan key={v1()} title={todolist.title} callBack={changeTodolistTitle} />
             <IconButton aria-label="delete" onClick={removeTodolist} size={"small"}>
                 <Delete />
             </IconButton>
@@ -60,7 +67,7 @@ export const TodoList = memo(({todolist}: PropsType) => {
         <ul>
             {
                 tasksForTodolist.map(t => {
-                    return <TaskItem  task={t} todolistId={todolist.id}/>
+                    return <TaskItem key={t.id} task={t} todolistId={todolist.id}/>
                 })
             }
         </ul>
