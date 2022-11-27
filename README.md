@@ -6,4 +6,5 @@
 - Material-UI
 - Storybook
 - Snapshot
+- Axios
 - gitHub, gitHub Pages
