@@ -5,4 +5,5 @@
 - Redux
 - Material-UI
 - Storybook
+- Snapshot
 - gitHub, gitHub Pages
