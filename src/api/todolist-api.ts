@@ -27,7 +27,7 @@ export const todolistApi = {
     },
 
     getTasks(todolistId: string){
-        return instance.get<ResponceGetTasktype>(`/todo-lists/${todolistId}/tasks`)
+        return instance.get<GetTasksResponse>(`/todo-lists/${todolistId}/tasks`)
     },
 
     createTask(todolistId: string, title: string){
@@ -43,13 +43,13 @@ export const todolistApi = {
     }
 }
 
-type ToDoListType = {
+export type ToDoListType = {
     "id": string,
     "title": string,
     "addedDate": string,
     "order": number
 }
-type TaskType = {
+export type TaskType = {
     "id": string,
     "title": string,
     "description": null | string,
@@ -68,7 +68,7 @@ type ResponseType<T = {}> = {
     data: T,
 }
 
-type ResponceGetTasktype = {
+type GetTasksResponse = {
     data: Array<TaskType>,
     error: null | string,
     totalCount: number
