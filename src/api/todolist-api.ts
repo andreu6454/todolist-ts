@@ -61,13 +61,13 @@ export type TaskType = {
     "deadline": null | string,
     "addedDate": string
 }
+
 type ResponseType<T = {}> = {
     resultCode: number,
     fieldsErrors: [],
     messages: Array<string>,
     data: T,
 }
-
 type GetTasksResponse = {
     data: Array<TaskType>,
     error: null | string,
