@@ -3,6 +3,7 @@
 - Typescript
 - React
 - Redux
+- Redux-thunk
 - Material-UI
 - Storybook
 - Snapshot

@@ -1,35 +1,32 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
-import {TaskType, TodoList} from "./TodoList";
+import {TodoList} from "./TodoList";
 import {AddItemForm} from "./Components/AddItemForm";
 import {Container, Grid, Paper} from '@mui/material';
 import ButtonAppBar from "./Components/ButtonAppBar";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./state/store";
-import {addTodolistAC} from "./state/todolists-reducer";
+import {useAppDispatch, useAppSelector} from "./state/store";
+import {addTodolistTC, fetchTodolistsTC, TodolistDomainType} from "./state/todolists-reducer";
 import {v1} from "uuid";
+import {TaskType} from "./api/todolist-api";
 
-export type FilterValuesType = "all" | "active" | "completed";
 
-export type TodolistsType = {
-    id: string,
-    title: string,
-    filter: FilterValuesType
-}
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
 function App() {
 
-    let todolists = useSelector<AppRootStateType, Array<TodolistsType>>(state => state.todolists);
+    useEffect(() => {
+        dispatch(fetchTodolistsTC())
+    }, [])
 
-    const dispatch = useDispatch()
+    let todolists = useAppSelector<Array<TodolistDomainType>>(state => state.todolists);
 
-    const addTodolist=useCallback ((title: string) => {
-        let action = addTodolistAC(title)
-        dispatch(action)
-    },[dispatch])
+    const dispatch = useAppDispatch()
+
+    const addTodolist = useCallback((title: string) => {
+        dispatch(addTodolistTC(title))
+    }, [dispatch])
 
     return (
         <div className="App">
@@ -42,7 +39,7 @@ function App() {
                     </div>
                 </Grid>
                 <Grid container spacing={3}>
-                    {todolists.map( el => {
+                    {todolists.map(el => {
                         return (<Grid item>
                                 <Paper style={{padding: "10px"}} variant="outlined">
                                     <TodoList
