@@ -11,15 +11,15 @@ export default {
 
 const Template: ComponentStory<typeof TaskItem> = (args ) => <TaskItem {...args}/>;
 
-export const TaskIsDone = Template.bind({})
-
-TaskIsDone.args = {
-    task: {id: "aaa", isDone: true, title: "ASD"},
-    todolistId: "string"
-}
-export const TaskIsNotDone = Template.bind({})
-
-TaskIsNotDone.args = {
-    task: {id: "aaa", isDone: false, title: "ASD"},
-    todolistId: "string"
-}
+// export const TaskIsDone = Template.bind({})
+//
+// TaskIsDone.args = {
+//     task: {id: "aaa", isDone: true, title: "ASD"},
+//     todolistId: "string"
+// }
+// export const TaskIsNotDone = Template.bind({})
+//
+// TaskIsNotDone.args = {
+//     task: {id: "aaa", isDone: false, title: "ASD"},
+//     todolistId: "string"
+// }
