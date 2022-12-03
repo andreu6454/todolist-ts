@@ -1,6 +1,7 @@
 import {Dispatch} from 'redux'
-import {todolistsAPI, TodolistType} from "../api/todolist-api";
-import {RequestStatusType, setErrorAC, SetErrorActionType, setStatusAC, SetStatusActionType} from "../app/app-reducer";
+import {ResultStatus, todolistsAPI, TodolistType} from "../api/todolist-api";
+import {RequestStatusType, SetErrorActionType, setStatusAC, SetStatusActionType} from "../app/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -42,7 +43,7 @@ export const changeTodoListEntityStatusAC = (id: string, entityStatus: RequestSt
         type: "SET-ENTITY-STATUS",
         id,
         entityStatus
-    }as const
+    } as const
 }
 
 
@@ -55,20 +56,25 @@ export const fetchTodolistsTC = () => {
                 dispatch(setTodolistsAC(res.data))
                 dispatch(setStatusAC('idle'))
             })
+            .catch((e) => {
+                handleServerNetworkError(e,dispatch)
+            })
     }
 }
 export const removeTodolistTC = (todolistId: string) => {
     return (dispatch: Dispatch<ActionsType>) => {
         dispatch(setStatusAC('loading'))
-        dispatch(changeTodoListEntityStatusAC(todolistId,"loading"))
+        dispatch(changeTodoListEntityStatusAC(todolistId, "loading"))
         todolistsAPI.deleteTodolist(todolistId)
             .then((res) => {
                 dispatch(removeTodolistAC(todolistId))
                 dispatch(setStatusAC('idle'))
-            }).catch((reason)=>{
-            dispatch(changeTodoListEntityStatusAC(todolistId,"failed"))
-            dispatch(setStatusAC('idle'))
-            dispatch(setErrorAC(reason.message))
+                if(res.data.resultCode === 1){
+                    handleServerAppError(res.data,dispatch)
+                }
+            }).catch((e) => {
+            handleServerNetworkError(e.message,dispatch)
+            dispatch(changeTodoListEntityStatusAC(todolistId, "failed"))
         })
     }
 }
@@ -77,17 +83,15 @@ export const addTodolistTC = (title: string) => {
         dispatch(setStatusAC('loading'))
         todolistsAPI.createTodolist(title)
             .then((res) => {
-                if (res.data.resultCode === 0) {
+                if (res.data.resultCode === ResultStatus.OK) {
                     dispatch(addTodolistAC(res.data.data.item))
                     dispatch(setStatusAC('idle'))
                 } else {
-                    if (res.data.messages.length) {
-                        dispatch(setErrorAC(res.data.messages[0]))
-                    } else {
-                        dispatch(setErrorAC('Some error occurred'))
-                    }
-                    dispatch(setStatusAC('failed'))
+                    handleServerAppError<{item: TodolistType}>(res.data,dispatch)
                 }
+            })
+            .catch((e) => {
+                handleServerNetworkError(e,dispatch)
             })
     }
 }
@@ -98,6 +102,9 @@ export const changeTodolistTitleTC = (id: string, title: string) => {
             .then((res) => {
                 dispatch(changeTodolistTitleAC(id, title))
                 dispatch(setStatusAC('idle'))
+            })
+            .catch((e) => {
+                handleServerNetworkError(e,dispatch)
             })
     }
 }
