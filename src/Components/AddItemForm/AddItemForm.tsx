@@ -2,7 +2,8 @@ import {Button, TextField} from '@mui/material';
 import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 
 type AddItemProps = {
-    callBack: (title: string) => void
+    callBack: (title: string) => void,
+    disabled?: boolean;
 }
 export const AddItemForm = memo((props: AddItemProps) => {
     const {callBack} = props
@@ -43,6 +44,7 @@ export const AddItemForm = memo((props: AddItemProps) => {
                 label={error ? "Title is required" : "Add title"}
                 variant="outlined"
                 size="small"
+                disabled={props.disabled}
             />
             <Button
                 variant={'contained'}
@@ -54,7 +56,8 @@ export const AddItemForm = memo((props: AddItemProps) => {
                     background: "#3b3939"
                 }}
                 size={'small'}
-                onClick={addTask}>+</Button>
+                onClick={addTask}
+                disabled={props.disabled}>+</Button>
         </div>
     );
 });

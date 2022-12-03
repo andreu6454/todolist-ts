@@ -66,7 +66,7 @@ export const TodoList = memo(({todolist}: PropsType) => {
             </IconButton>
         </h3>
 
-        <AddItemForm callBack={addTask}/>
+        <AddItemForm callBack={addTask} disabled={todolist.entityStatus === "loading"}/>
 
         <ul>
             {
