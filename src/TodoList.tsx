@@ -1,7 +1,7 @@
 import {Button, IconButton} from '@mui/material';
 import React, {memo, useCallback, useEffect} from 'react';
-import {AddItemForm} from "./Components/AddItemForm";
-import {EditableSpan} from "./Components/EditableSpan";
+import {AddItemForm} from "./Components/AddItemForm/AddItemForm";
+import {EditableSpan} from "./Components/EditableSpan/EditableSpan";
 import {Delete} from "@mui/icons-material";
 import {useAppDispatch, useAppSelector} from "./state/store";
 import {addTaskTC, fetchTasksTC} from "./state/tasks-reducer";
@@ -11,7 +11,7 @@ import {
     removeTodolistTC,
     TodolistDomainType,
 } from "./state/todolists-reducer";
-import TaskItem from "./Components/TaskItem";
+import TaskItem from "./Components/TaskItem/TaskItem";
 import {v1} from "uuid";
 import {TaskStatuses, TaskType} from "./api/todolist-api";
 
@@ -61,7 +61,7 @@ export const TodoList = memo(({todolist}: PropsType) => {
     return <div>
         <h3>
             <EditableSpan key={v1()} title={todolist.title} callBack={changeTodolistTitle}/>
-            <IconButton aria-label="delete" onClick={removeTodolist} size={"small"}>
+            <IconButton aria-label="delete" onClick={removeTodolist} size={"small"} disabled={todolist.entityStatus === "loading"}>
                 <Delete/>
             </IconButton>
         </h3>
