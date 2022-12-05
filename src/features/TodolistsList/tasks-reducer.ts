@@ -67,7 +67,7 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<ActionsT
             dispatch(setStatusAC('idle'))
         })
         .catch((e) => {
-            handleServerNetworkError(e,dispatch)
+            handleServerNetworkError(e, dispatch)
         })
 }
 export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
@@ -79,7 +79,7 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
             dispatch(setStatusAC('idle'))
         })
         .catch((e) => {
-            handleServerNetworkError(e,dispatch)
+            handleServerNetworkError(e, dispatch)
         })
 }
 export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
@@ -91,11 +91,11 @@ export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispa
                 dispatch(addTaskAC(task))
                 dispatch(setStatusAC('succeeded'))
             } else {
-                handleServerAppError<{item: TaskType}>(res.data,dispatch)
+                handleServerAppError<{ item: TaskType }>(res.data, dispatch)
             }
         })
         .catch((e) => {
-            handleServerNetworkError(e,dispatch)
+            handleServerNetworkError(e, dispatch)
         })
 }
 export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) =>
@@ -134,7 +134,7 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
                 }
             })
             .catch((e) => {
-                handleServerNetworkError(e,dispatch)
+                handleServerNetworkError(e, dispatch)
             })
     }
 
