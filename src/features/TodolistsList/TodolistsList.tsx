@@ -6,20 +6,27 @@ import {addTodolistTC, fetchTodolistsTC, TodolistDomainType} from "./todolists-r
 import {useAppDispatch, useAppSelector} from "../../state/store";
 import {AddItemForm} from "../../Components/AddItemForm/AddItemForm";
 import {v1} from "uuid";
+import {Navigate} from "react-router-dom";
 
 const TodolistsList = () => {
     useEffect(() => {
+        if(!isLoggined){
+            return
+        }
         dispatch(fetchTodolistsTC())
     }, [])
 
-    let todolists = useAppSelector<Array<TodolistDomainType>>(state => state.todolists);
-
+    const todolists = useAppSelector<Array<TodolistDomainType>>(state => state.todolists);
+    const isLoggined = useAppSelector<boolean>(state => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
 
     const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistTC(title))
     }, [dispatch])
 
+    if(!isLoggined){
+        return <Navigate to={'/login'}/>
+    }
     return <>
         <Grid container style={{padding: "20px"}}>
             <div>
