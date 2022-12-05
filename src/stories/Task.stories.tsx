@@ -1,6 +1,6 @@
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 import React from "react";
-import TaskItem from "../Components/TaskItem/TaskItem";
+import TaskItem from "../features/TodolistsList/TaskItem/TaskItem";
 import {ReduxStoreProviderDecorator} from "./Decorators/ReduxStoreProviderDecorator";
 
 export default {

@@ -5,7 +5,7 @@ import {
     changeTodolistTitleAC,
     removeTodolistAC,
     todolistsReducer
-} from '../todolists-reducer';
+} from '../../features/TodolistsList/todolists-reducer';
 import {v1} from 'uuid';
 
 // let todolistId1 : string;

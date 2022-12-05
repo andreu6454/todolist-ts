@@ -1,19 +1,19 @@
 import {Button, IconButton} from '@mui/material';
 import React, {memo, useCallback, useEffect} from 'react';
-import {AddItemForm} from "./Components/AddItemForm/AddItemForm";
-import {EditableSpan} from "./Components/EditableSpan/EditableSpan";
+import {AddItemForm} from "../../Components/AddItemForm/AddItemForm";
+import {EditableSpan} from "../../Components/EditableSpan/EditableSpan";
 import {Delete} from "@mui/icons-material";
-import {useAppDispatch, useAppSelector} from "./state/store";
-import {addTaskTC, fetchTasksTC} from "./state/tasks-reducer";
+import {useAppDispatch, useAppSelector} from "../../state/store";
+import {addTaskTC, fetchTasksTC} from "./tasks-reducer";
 import {
     changeTodolistFilterAC,
     changeTodolistTitleTC,
     removeTodolistTC,
     TodolistDomainType,
-} from "./state/todolists-reducer";
-import TaskItem from "./Components/TaskItem/TaskItem";
+} from "./todolists-reducer";
+import TaskItem from "./TaskItem/TaskItem";
 import {v1} from "uuid";
-import {TaskStatuses, TaskType} from "./api/todolist-api";
+import {TaskStatuses, TaskType} from "../../api/todolist-api";
 
 
 type PropsType = {

@@ -7,10 +7,10 @@ import {
     TaskType,
     todolistsAPI,
     UpdateTaskModelType
-} from "../api/todolist-api";
-import {AppRootStateType} from "./store";
-import {setErrorAC, SetErrorActionType, setStatusAC, SetStatusActionType} from "../app/app-reducer";
-import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
+} from "../../api/todolist-api";
+import {AppRootStateType} from "../../state/store";
+import {setErrorAC, SetErrorActionType, setStatusAC, SetStatusActionType} from "../../app/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 const initialState: TasksStateType = {}
 

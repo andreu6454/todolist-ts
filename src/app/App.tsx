@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
-import {TodoList} from "../TodoList";
+import {TodoList} from "../features/TodolistsList/TodoList";
 import {AddItemForm} from "../Components/AddItemForm/AddItemForm";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -8,7 +8,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Paper from '@mui/material/Paper';
 import ButtonAppBar from "../Components/ButtonAppBar/ButtonAppBar";
 import {useAppDispatch, useAppSelector} from "../state/store";
-import {addTodolistTC, fetchTodolistsTC, TodolistDomainType} from "../state/todolists-reducer";
+import {addTodolistTC, fetchTodolistsTC, TodolistDomainType} from "../features/TodolistsList/todolists-reducer";
 import {v1} from "uuid";
 import {TaskType} from "../api/todolist-api";
 import {RequestStatusType} from "./app-reducer";
