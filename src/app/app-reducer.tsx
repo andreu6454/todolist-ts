@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {auth_ResultCode, authAPI} from "../api/auth-api";
 import {setIsLoggedInAC} from "../features/Login/auth-reducer";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -10,54 +11,36 @@ const initialState = {
     isInitialized: false as boolean
 }
 
-export type AppReducerStateType = typeof initialState
-
-export const appReducer = (state: AppReducerStateType = initialState, action: ActionsType): AppReducerStateType => {
-    switch (action.type) {
-        case 'APP/SET-STATUS':
-            return {...state, status: action.status}
-        case "APP/SET-ERROR":
-            return {...state, error: action.error}
-        case "APP/SET-INITIALIZED":
-            return {...state, isInitialized: action.isInitialized}
-        default:
-            return state
-    }
-}
-
-export const setStatusAC = (status: RequestStatusType) => {
-    return {
-        type: "APP/SET-STATUS",
-        status
-    } as const
-}
-export const setErrorAC = (error: null | string) => {
-    return {
-        type: "APP/SET-ERROR",
-        error
-    } as const
-}
-export const setInitializedAC = (isInitialized: boolean) => {
-    return {
-        type: "APP/SET-INITIALIZED",
-        isInitialized
-    } as const
-}
-export const initializeAppTC = () => (dispatch: Dispatch) => {
-    dispatch(setStatusAC('loading'))
-    authAPI.me().then(res => {
-        dispatch(setStatusAC('idle'))
-        if (res.data.resultCode === auth_ResultCode.OK) {
-            dispatch(setIsLoggedInAC(true));
-        } else {
-            dispatch(setIsLoggedInAC(false))
+const appSlice = createSlice({
+    name: "app",
+    initialState: initialState,
+    reducers: {
+        setStatusAC: (state, action: PayloadAction<{ status: RequestStatusType }>) => {
+            state.status = action.payload.status
+        },
+        setErrorAC: (state, action: PayloadAction<{ error: null | string }>) => {
+            state.error = action.payload.error
+        },
+        setInitializedAC: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
+            state.isInitialized = action.payload.isInitialized
         }
-    }).finally(()=>{
-        dispatch(setInitializedAC(true))
+    }
+})
+
+export const appReducer = appSlice.reducer
+export const setStatusAC = appSlice.actions.setStatusAC
+export const setErrorAC = appSlice.actions.setErrorAC
+export const setInitializedAC = appSlice.actions.setInitializedAC
+export const initializeAppTC = () => (dispatch: Dispatch) => {
+    dispatch(setStatusAC({status: 'loading'}))
+    authAPI.me().then(res => {
+        dispatch(setStatusAC({status: 'idle'}))
+        if (res.data.resultCode === auth_ResultCode.OK) {
+            dispatch(setIsLoggedInAC({value: true}));
+        } else {
+            dispatch(setIsLoggedInAC({value: false}))
+        }
+    }).finally(() => {
+        dispatch(setInitializedAC({isInitialized: true}))
     })
 }
-
-export type SetStatusActionType = ReturnType<typeof setStatusAC>
-export type SetErrorActionType = ReturnType<typeof setErrorAC>
-export type SetInitializedActionType = ReturnType<typeof setInitializedAC>
-type ActionsType = SetStatusActionType | SetErrorActionType | SetInitializedActionType
