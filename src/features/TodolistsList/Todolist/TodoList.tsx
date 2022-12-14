@@ -39,13 +39,13 @@ export const TodoList = memo(({todolist}: PropsType) => {
         dispatch(changeTodolistTitleTC(todolist.id, title))
     }, [dispatch, todolist.id])
     const onAllClickHandler = useCallback(() =>
-        dispatch(changeTodolistFilterAC(todolist.id, "all")
+        dispatch(changeTodolistFilterAC({id: todolist.id, filter: "all"})
         ), [dispatch, todolist.id]);
     const onActiveClickHandler = useCallback(() =>
-        dispatch(changeTodolistFilterAC(todolist.id, "active")
+        dispatch(changeTodolistFilterAC({id: todolist.id, filter: "active"})
         ), [dispatch, todolist.id]);
     const onCompletedClickHandler = useCallback(() =>
-        dispatch(changeTodolistFilterAC(todolist.id, "completed")
+        dispatch(changeTodolistFilterAC({id: todolist.id, filter: "completed"})
         ), [dispatch, todolist.id]);
 
     let allTodolistTasks = tasks;
@@ -61,7 +61,8 @@ export const TodoList = memo(({todolist}: PropsType) => {
     return <div>
         <h3>
             <EditableSpan key={v1()} title={todolist.title} callBack={changeTodolistTitle}/>
-            <IconButton aria-label="delete" onClick={removeTodolist} size={"small"} disabled={todolist.entityStatus === "loading"}>
+            <IconButton aria-label="delete" onClick={removeTodolist} size={"small"}
+                        disabled={todolist.entityStatus === "loading"}>
                 <Delete/>
             </IconButton>
         </h3>
