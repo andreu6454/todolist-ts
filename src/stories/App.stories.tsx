@@ -1,14 +1,13 @@
-import {ComponentMeta, ComponentStory} from "@storybook/react";
 import React from "react";
 import App from "../app/App";
-import {ReduxStoreProviderDecorator} from "./Decorators/ReduxStoreProviderDecorator";
+import {BrowserRouterDecorator, ReduxStoreProviderDecorator} from "./Decorators/ReduxStoreProviderDecorator";
 
 export default {
     title: "TODOLIST/App",
     component: App,
-    decorators: [ReduxStoreProviderDecorator]
+    decorators: [ReduxStoreProviderDecorator,BrowserRouterDecorator]
 } as ComponentMeta<typeof App>
 
-const Template: ComponentStory<typeof App> = () =><App/>;
-
-export const AppStory = Template.bind({})
+export const AppStory = () => {
+    return (<App/>)
+}

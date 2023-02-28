@@ -52,7 +52,7 @@ export const fetchTodolistsTC = () => {
                 dispatch(setStatusAC({status: 'idle'}))
             })
             .catch((e) => {
-                handleServerNetworkError(e, dispatch)
+                //handleServerNetworkError(e, dispatch)
             })
     }
 }
@@ -64,11 +64,11 @@ export const removeTodolistTC = (todolistId: string) => {
             .then((res) => {
                 dispatch(removeTodolistAC({id:todolistId}))
                 dispatch(setStatusAC({status: 'idle'}))
-                if (res.data.resultCode === 1) {
-                    handleServerAppError(res.data, dispatch)
-                }
+                // if (res.data.resultCode === 1) {
+                //     //handleServerAppError(res.data, dispatch)
+                // }
             }).catch((e) => {
-            handleServerNetworkError(e.message, dispatch)
+            //handleServerNetworkError(e.message, dispatch)
             dispatch(changeTodoListEntityStatusAC({id: todolistId, entityStatus: "failed"}))
         })
     }
@@ -86,7 +86,7 @@ export const addTodolistTC = (title: string) => {
                 }
             })
             .catch((e) => {
-                handleServerNetworkError(e, dispatch)
+               // handleServerNetworkError(e, dispatch)
             })
     }
 }
@@ -99,7 +99,7 @@ export const changeTodolistTitleTC = (id: string, title: string) => {
                 dispatch(setStatusAC({status: 'idle'}))
             })
             .catch((e) => {
-                handleServerNetworkError(e, dispatch)
+              //  handleServerNetworkError(e, dispatch)
             })
     }
 }

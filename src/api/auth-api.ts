@@ -7,12 +7,12 @@ const instance = axios.create({
 
 export const authAPI = {
     login(data: loginType) {
-        return instance.post('/auth/login',data)
+        return instance.post('/auth/login', data)
     },
     me() {
         return instance.get('/auth/me')
     },
-    logout(){
+    logout() {
         return instance.delete('/auth/login')
     }
 }
@@ -24,7 +24,13 @@ export type loginType = {
     captcha?: string
 }
 
-export enum auth_ResultCode{
+export type logoutType = {
+    resultCode: auth_ResultCode
+    messages: string,
+    data: {}
+}
+
+export enum auth_ResultCode {
     OK = 0,
     ERROR = 1,
     CAPTCHA = 10

@@ -36,7 +36,9 @@ function App() {
         <div className="App">
             <ButtonAppBar/>
             <ErrorSnackbar/>
-            {status === "loading" && <LinearProgress/>}
+            <div className={status === "loading"? "":"Idle"}>
+                <LinearProgress/>
+            </div>
             <Container fixed>
                 <Routes>
                     <Route path={'/'} element={ <TodolistsList/>}/>

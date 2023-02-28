@@ -25,7 +25,7 @@ export const EditableSpan = memo((props: EditableSpanType) => {
 
     return (
         edit
-            ? <input type={"text"} value={newTitle} onChange={onChangeHandler} onBlur={toggleHandler} autoFocus/>
+            ? <input className={'EditableInput'} type={"text"} value={newTitle} onChange={onChangeHandler} onBlur={toggleHandler} autoFocus/>
             : <span onDoubleClick={toggleHandler}> {title} </span>
     );
 });

@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {auth_ResultCode, authAPI} from "../api/auth-api";
-import {setIsLoggedInAC} from "../features/Login/auth-reducer";
+import {loginTC, logoutTC, setIsLoggedInAC} from "../features/Login/auth-reducer";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -24,6 +24,25 @@ const appSlice = createSlice({
         setInitializedAC: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
             state.isInitialized = action.payload.isInitialized
         }
+    },
+    extraReducers(builder) {
+        builder
+            .addCase(loginTC.fulfilled, (state) => {
+                state.status = 'succeeded'
+            })
+            .addCase(loginTC.pending, (state) => {
+                state.status = 'loading'
+            })
+            .addCase(loginTC.rejected, (state,payload) => {
+                state.status = 'failed'
+                state.error = payload.payload || ""
+            })
+            .addCase(logoutTC.fulfilled, (state) => {
+                state.status = 'succeeded'
+            })
+            .addCase(logoutTC.pending, (state) => {
+                state.status = 'loading'
+            })
     }
 })
 
