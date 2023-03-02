@@ -5,3 +5,10 @@
     width: 120px;
     height: 20px;
 }
+.todolistLink{
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
