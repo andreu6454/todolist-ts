@@ -24,7 +24,7 @@ export const TodoList = memo(({todolist}: PropsType) => {
 
     useEffect(() => {
         dispatch(fetchTasksTC({todolistId: todolist.id}))
-    }, [])
+    }, [todolist.id])
 
     let tasks = useAppSelector<Array<TaskType>>(state => state.tasks[todolist.id]);
     const dispatch = useAppDispatch()
@@ -36,7 +36,9 @@ export const TodoList = memo(({todolist}: PropsType) => {
         dispatch(removeTodolistTC(todolist.id))
     }, [dispatch, todolist.id])
     const changeTodolistTitle = useCallback((title: string) => {
-        dispatch(changeTodolistTitleTC(todolist.id, title))
+        if (todolist.title !== title) {
+            dispatch(changeTodolistTitleTC(todolist.id, title))
+        }
     }, [dispatch, todolist.id])
     const onAllClickHandler = useCallback(() =>
         dispatch(changeTodolistFilterAC({id: todolist.id, filter: "all"})

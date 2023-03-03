@@ -10,21 +10,21 @@ import {Navigate} from "react-router-dom";
 
 const TodolistsList = () => {
     useEffect(() => {
-        if(!isLoggined){
+        if(!isLogined){
             return
         }
         dispatch(fetchTodolistsTC())
     }, [])
 
     const todolists = useAppSelector<Array<TodolistDomainType>>(state => state.todolists);
-    const isLoggined = useAppSelector<boolean>(state => state.auth.isLoggedIn)
+    const isLogined = useAppSelector<boolean>(state => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
 
     const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistTC(title))
     }, [dispatch])
 
-    if(!isLoggined){
+    if(!isLogined){
         return <Navigate to={'/login'}/>
     }
     return <>
@@ -36,7 +36,7 @@ const TodolistsList = () => {
         </Grid>
         <Grid container spacing={3}>
             {todolists.map((el) => {
-                return (<Grid item>
+                return (<Grid item key={v1()}>
                         <Paper style={{padding: "10px"}} variant="outlined">
                             <TodoList
                                 key={el.id}

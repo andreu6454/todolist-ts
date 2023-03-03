@@ -7,7 +7,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import React from 'react';
 import {useAppDispatch, useAppSelector} from "../../state/store";
 import {logoutTC} from "../../features/Login/auth-reducer";
-import {Navigate, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 const ButtonAppBar = () => {
     const isLogined = useAppSelector<boolean>(state => state.auth.isLoggedIn)
@@ -16,11 +16,8 @@ const ButtonAppBar = () => {
         dispatch(logoutTC())
     }
 
-    const navigateHandle = () => {
-        return <Navigate to={'/'}/>
-    }
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{flexGrow: 1}}>
             <AppBar position="static" style={{background: "#3b3939"}}>
                 <Toolbar>
                     <IconButton
@@ -28,11 +25,10 @@ const ButtonAppBar = () => {
                         edge="start"
                         color="inherit"
                         aria-label="menu"
-                        sx={{ mr: 2 }}
-                        onClick={navigateHandle}
+                        sx={{mr: 2}}
                     >
-                        <MenuIcon onClick={navigateHandle}/>
-                    </IconButton >
+                        <MenuIcon/>
+                    </IconButton>
                     <NavLink className={'todolistLink'} to={'/'}> TodoLists </NavLink>
                     {isLogined && <Button sx={{ml: 'auto'}} color="inherit" onClick={logOutHandler}>Log out</Button>}
                 </Toolbar>

@@ -23,7 +23,9 @@ const TaskItem = memo((props: { task: TaskType }) => {
     }, [dispatch, props.task.id, props.task.todoListId])
 
     const onTitleChangeHandler = useCallback((newValue: string) => {
-        dispatch(updateTaskTC(props.task.id, {title: newValue}, props.task.todoListId));
+        if(props.task.title !== newValue){
+            dispatch(updateTaskTC(props.task.id, {title: newValue}, props.task.todoListId));
+        }
     }, [dispatch, props.task.id, props.task.todoListId])
 
     return (

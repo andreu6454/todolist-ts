@@ -139,7 +139,9 @@ const taskSlice = createSlice({
             })
         })
             .addCase(fetchTasksTC.fulfilled, (state, action) => {
-                state[action.payload.items[0].todoListId] = action.payload.items
+                if (action.payload.items[0]) {
+                    state[action.payload.items[0].todoListId] = action.payload.items
+                }
             })
             .addCase(removeTaskTC.fulfilled, (state, action) => {
                 const task = state[action.payload.todolistId]
